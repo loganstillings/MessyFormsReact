@@ -75,7 +75,7 @@ class FormBuilder extends React.Component {
                 {
                     Id: questions.length + 1,
                     Question: '',
-                    QuestionType: '',
+                    QuestionType: 'Text',
                     SubInputs: [],
                 },
             ]),
@@ -143,10 +143,10 @@ function updateQuestions(questions, layeredIndex, fieldName, newValue) {
 function addSubInputToQuestions(questions, layeredIndex) {
     if (typeof layeredIndex === 'number') {
         questions[layeredIndex].SubInputs.push({
-            ConditionType: '',
-            ConditionValue: '',
+            ConditionType: 'Equals',
+            ConditionValue: getDefaultConditionValue(questions[layeredIndex]),
             Question: '',
-            QuestionType: '',
+            QuestionType: 'Text',
             SubInputs: [],
         });
     } else if (typeof layeredIndex === 'string') {
@@ -158,10 +158,10 @@ function addSubInputToQuestions(questions, layeredIndex) {
             questionWithSubInputs,
         );
         question.SubInputs.push({
-            ConditionType: '',
-            ConditionValue: '',
+            ConditionType: 'Equals',
+            ConditionValue: getDefaultConditionValue(question),
             Question: '',
-            QuestionType: '',
+            QuestionType: 'Text',
             SubInputs: [],
         });
     }
@@ -200,4 +200,19 @@ function traverseAndDelete(layers, question) {
     }
 }
 
+function getDefaultConditionValue(question) {
+    let defaltConditionValue = '';
+    switch (question.QuestionType) {
+        case 'YesNo':
+            defaltConditionValue = 'Yes';
+            break;
+        case 'Number':
+            defaltConditionValue = 0;
+            break;
+        default:
+            defaltConditionValue = '';
+            break;
+    }
+    return defaltConditionValue;
+}
 export default FormBuilder;
