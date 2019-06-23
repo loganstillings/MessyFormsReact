@@ -1,9 +1,13 @@
 import React from 'react';
 
-import db from '../../db/db';
 import './form-builder.css';
+import db from '../db/db';
 import FormActionButtons from './form-action-buttons/form-action-buttons';
-import QuestionsList from './questions-list/questions-list';
+import QuestionsList from '../questions/questions-list/questions-list';
+
+import addSubInputToQuestions from '../lib/addSubInputToQuestions';
+import deleteQuestion from '../lib/deleteQuestion';
+import updateQuestions from '../lib/updateQuestions';
 
 class FormBuilder extends React.Component {
     constructor(props) {
@@ -124,95 +128,4 @@ class FormBuilder extends React.Component {
     }
 }
 
-function updateQuestions(questions, layeredIndex, fieldName, newValue) {
-    if (typeof layeredIndex === 'number') {
-        questions[layeredIndex][fieldName] = newValue;
-    } else if (typeof layeredIndex === 'string') {
-        let layers = layeredIndex.split('_');
-        let questionWithSubInputs = questions[layers[0]];
-        layers.splice(0, 1);
-        let question = traverseArrayForNestedQuestion(
-            layers,
-            questionWithSubInputs,
-        );
-        question[fieldName] = newValue;
-    }
-    return questions;
-}
-
-function addSubInputToQuestions(questions, layeredIndex) {
-    if (typeof layeredIndex === 'number') {
-        questions[layeredIndex].SubInputs.push({
-            ConditionType: 'Equals',
-            ConditionValue: getDefaultConditionValue(questions[layeredIndex]),
-            Question: '',
-            QuestionType: 'Text',
-            SubInputs: [],
-        });
-    } else if (typeof layeredIndex === 'string') {
-        let layers = layeredIndex.split('_');
-        let questionWithSubInputs = questions[layers[0]];
-        layers.splice(0, 1);
-        let question = traverseArrayForNestedQuestion(
-            layers,
-            questionWithSubInputs,
-        );
-        question.SubInputs.push({
-            ConditionType: 'Equals',
-            ConditionValue: getDefaultConditionValue(question),
-            Question: '',
-            QuestionType: 'Text',
-            SubInputs: [],
-        });
-    }
-    return questions;
-}
-
-function traverseArrayForNestedQuestion(layers, question) {
-    if (layers.length === 1) {
-        return question.SubInputs[layers[0]];
-    } else {
-        let nestedQuestion = question.SubInputs[layers[0]];
-        layers.splice(0, 1);
-        return traverseArrayForNestedQuestion(layers, nestedQuestion);
-    }
-}
-
-function deleteQuestion(questions, layeredIndex) {
-    if (typeof layeredIndex === 'number') {
-        questions.splice(layeredIndex, 1);
-    } else if (typeof layeredIndex === 'string') {
-        let layers = layeredIndex.split('_');
-        let questionWithSubInputs = questions[layers[0]];
-        layers.splice(0, 1);
-        traverseAndDelete(layers, questionWithSubInputs);
-    }
-    return questions;
-}
-
-function traverseAndDelete(layers, question) {
-    if (layers.length === 1) {
-        question.SubInputs.splice(layers[0], 1);
-    } else {
-        let nestedQuestion = question.SubInputs[layers[0]];
-        layers.splice(0, 1);
-        traverseAndDelete(layers, nestedQuestion);
-    }
-}
-
-function getDefaultConditionValue(parentQuestion) {
-    let defaltConditionValue = '';
-    switch (parentQuestion.QuestionType) {
-        case 'YesNo':
-            defaltConditionValue = 'Yes';
-            break;
-        case 'Number':
-            defaltConditionValue = 0;
-            break;
-        default:
-            defaltConditionValue = '';
-            break;
-    }
-    return defaltConditionValue;
-}
 export default FormBuilder;
