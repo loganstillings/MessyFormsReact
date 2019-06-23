@@ -1,6 +1,11 @@
 import React from 'react';
 
 function QuestionBase(props) {
+    const questionLayerIndex =
+        props.questionId + '_' + props.layer + '_' + props.index;
+    const handleChange = (event) => {
+        props.onQuestionChanged(event, questionLayerIndex);
+    };
     return (
         <div>
             <div className="form-group">
@@ -8,7 +13,7 @@ function QuestionBase(props) {
                 <input
                     className="form-control"
                     value={props.question.Question}
-                    onChange={props.onQuestionChanged}
+                    onChange={handleChange}
                     name="Question"
                     type="text"
                 />
@@ -18,7 +23,7 @@ function QuestionBase(props) {
                 <select
                     className="form-control"
                     value={props.question.QuestionType}
-                    onChange={props.onQuestionChanged}
+                    onChange={handleChange}
                     name="QuestionType"
                 >
                     <option value="Text">Text</option>

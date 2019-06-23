@@ -1,25 +1,33 @@
 import React from 'react';
 
 function Condition(props) {
+    const questionLayerIndex =
+        props.questionId + '_' + props.layer + '_' + props.index;
+    const handleChange = (event) => {
+        props.onQuestionChanged(event, questionLayerIndex);
+    };
     return (
         <div className="form-group">
             <div className="inline-block col-md-8">
-                <label htmlFor="ConditionTypeId">Condition</label>
+                <label htmlFor="ConditionType">Condition</label>
                 <select
-                    name="ConditionTypeId"
+                    name="ConditionType"
                     className="form-control"
                     value={props.subInputQuestion.ConditionType}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 >
-                    <option>Equals</option>
+                    <option value="Equals">Equals</option>
+                    <option value="GreaterThan">Greater Than</option>
+                    <option value="LessThan">Less Than</option>
                 </select>
             </div>
             <div className="inline-block col-md-4">
                 <input
+                    name="ConditionValue"
                     className="form-control"
                     type="text"
                     value={props.subInputQuestion.ConditionValue}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </div>
         </div>

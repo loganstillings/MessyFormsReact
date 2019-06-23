@@ -6,32 +6,30 @@ function SubInputs(props) {
     return (
         <div className="sub-inputs-list">
             {props.subInputs.map((subInputQuestion, index) => {
-                const hasSubInputs = subInputQuestion.SubInputs ? true : false;
-                if (hasSubInputs) {
-                    return (
-                        <div key={index}>
-                            <SubInput
-                                onQuestionChanged={props.onQuestionChanged}
-                                subInputQuestion={subInputQuestion}
-                            />
-                            <div>
-                                <SubInputs
-                                    onQuestionChanged={props.onQuestionChanged}
-                                    subInputs={subInputQuestion.SubInputs}
-                                />
-                            </div>
-                        </div>
-                    );
-                } else {
-                    return (
-                        <div key={index}>
-                            <SubInput
-                                onQuestionChanged={props.onQuestionChanged}
-                                subInputQuestion={subInputQuestion}
-                            />
-                        </div>
-                    );
-                }
+                return (
+                    <div key={index}>
+                        <SubInput
+                            onQuestionChanged={props.onQuestionChanged}
+                            subInputQuestion={subInputQuestion}
+                            questionId={props.questionId}
+                            layer={props.layer}
+                            index={index}
+                        />
+                        {subInputQuestion.SubInputs &&
+                            subInputQuestion.SubInputs.length > 0 && (
+                                <div>
+                                    <SubInputs
+                                        onQuestionChanged={
+                                            props.onQuestionChanged
+                                        }
+                                        subInputs={subInputQuestion.SubInputs}
+                                        layer={props.layer + 1}
+                                        questionId={props.questionId}
+                                    />
+                                </div>
+                            )}
+                    </div>
+                );
             })}
         </div>
     );

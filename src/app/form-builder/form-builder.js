@@ -18,8 +18,11 @@ class FormBuilder extends React.Component {
         console.log(this.state.questions);
     }
 
-    handleQuestionChanged(question) {
-        console.log(question);
+    handleQuestionChanged(event, questionLayerIndex) {
+        console.log(event.target.name);
+        console.log(event.target.value);
+        console.log(questionLayerIndex);
+        console.log(this.state.questions);
     }
 
     handleInputAdded() {
