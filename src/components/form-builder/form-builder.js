@@ -1,13 +1,13 @@
 import React from 'react';
 
-import './form-builder.css';
-import db from '../db/db';
+import '../../styles/styles.css';
+import db from '../../db/db';
 import FormActionButtons from './form-action-buttons/form-action-buttons';
-import QuestionsList from '../questions/questions-list/questions-list';
+import QuestionsList from '../questions/questions-list';
 
-import addSubInputToQuestions from '../lib/addSubInputToQuestions';
-import deleteQuestion from '../lib/deleteQuestion';
-import updateQuestions from '../lib/updateQuestions';
+import addSubInputToQuestions from '../../utilities/addSubInputToQuestions';
+import deleteQuestion from '../../utilities/deleteQuestion';
+import updateQuestions from '../../utilities/updateQuestions';
 
 class FormBuilder extends React.Component {
     constructor(props) {

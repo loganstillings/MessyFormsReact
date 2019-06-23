@@ -1,4 +1,4 @@
-import traverseAndDelete from '../lib/traverseAndDelete';
+import traverseAndDelete from './traverseAndDelete';
 
 function deleteQuestion(questions, layeredIndex) {
     if (typeof layeredIndex === 'number') {

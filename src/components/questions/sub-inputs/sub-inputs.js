@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SubInput from './sub-input/sub-input';
+import SubInput from './sub-input';
 
 function SubInputs(props) {
     return (

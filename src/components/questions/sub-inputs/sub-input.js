@@ -1,7 +1,7 @@
 import React from 'react';
 
-import QuestionBase from '../../question-base/question-base';
-import Condition from '../condition/condition';
+import QuestionBase from '../question-base';
+import Condition from './condition';
 
 function SubInput(props) {
     return (

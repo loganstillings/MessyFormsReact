@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AddInputButton from './add-input-button/add-input.button';
-import SaveButton from './save-button/save-button';
+import AddInputButton from './add-input.button';
+import SaveButton from './save-button';
 
 function FormActionButtons(props) {
     return (
