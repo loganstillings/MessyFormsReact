@@ -18,11 +18,19 @@ class FormBuilder extends React.Component {
         console.log(this.state.questions);
     }
 
-    handleQuestionChanged(event, questionLayerIndex) {
-        console.log(event.target.name);
-        console.log(event.target.value);
-        console.log(questionLayerIndex);
-        console.log(this.state.questions);
+    handleQuestionChanged(event, layeredIndex) {
+        const fieldName = event.target.name;
+        const newValue = event.target.value;
+        const questionsCopy = [...this.state.questions];
+        let updatedQuestions = updateQuestions(
+            questionsCopy,
+            layeredIndex,
+            fieldName,
+            newValue,
+        );
+        this.setState({
+            questions: updatedQuestions,
+        });
     }
 
     handleInputAdded() {
@@ -117,5 +125,30 @@ const QUESTIONS = [
         SubInputs: [],
     },
 ];
+
+function updateQuestions(questions, layeredIndex, fieldName, newValue) {
+    if (typeof layeredIndex === 'number') {
+        questions[layeredIndex][fieldName] = newValue;
+    } else if (typeof layeredIndex === 'string') {
+        let layers = layeredIndex.split('_');
+        layers.splice(0, 1);
+        let question = traverseArrayForNestedQuestion(
+            layers,
+            questions[layers[0]],
+        );
+        question[fieldName] = newValue;
+    }
+    return questions;
+}
+
+function traverseArrayForNestedQuestion(layers, question) {
+    if (layers.length === 1) {
+        return question.SubInputs[layers[0]];
+    } else {
+        let nestedQuestion = question.SubInputs[layers[0]];
+        layers.splice(0, 1);
+        traverseArrayForNestedQuestion(layers, nestedQuestion);
+    }
+}
 
 export default FormBuilder;
