@@ -13,6 +13,7 @@ function QuestionsList(props) {
                         question={question}
                         layeredIndex={index}
                         onSubInputAdded={props.onSubInputAdded}
+                        onDelete={props.onDelete}
                     />
                 </div>
                 {question.SubInputs && question.SubInputs.length > 0 && (
@@ -22,6 +23,7 @@ function QuestionsList(props) {
                         layeredIndex={index}
                         parentQuestionType={question.QuestionType}
                         onSubInputAdded={props.onSubInputAdded}
+                        onDelete={props.onDelete}
                     />
                 )}
             </div>

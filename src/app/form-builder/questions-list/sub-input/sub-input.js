@@ -17,6 +17,7 @@ function SubInput(props) {
                 question={props.subInputQuestion}
                 layeredIndex={props.layeredIndex}
                 onSubInputAdded={props.onSubInputAdded}
+                onDelete={props.onDelete}
             />
         </div>
     );

@@ -15,6 +15,7 @@ function SubInputs(props) {
                             layeredIndex={layeredIndex}
                             parentQuestionType={props.parentQuestionType}
                             onSubInputAdded={props.onSubInputAdded}
+                            onDelete={props.onDelete}
                         />
                         {subInputQuestion.SubInputs &&
                             subInputQuestion.SubInputs.length > 0 && (
@@ -28,6 +29,8 @@ function SubInputs(props) {
                                         parentQuestionType={
                                             subInputQuestion.QuestionType
                                         }
+                                        onSubInputAdded={props.onSubInputAdded}
+                                        onDelete={props.onDelete}
                                     />
                                 </div>
                             )}

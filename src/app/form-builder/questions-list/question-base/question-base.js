@@ -7,6 +7,9 @@ function QuestionBase(props) {
     const handleSubInputAdded = (event) => {
         props.onSubInputAdded(props.layeredIndex);
     };
+    const handleDelete = (event) => {
+        props.onDelete(props.layeredIndex);
+    };
     return (
         <div>
             <div className="form-group">
@@ -40,7 +43,11 @@ function QuestionBase(props) {
                 >
                     Add Sub-Input
                 </button>
-                <button type="button" className="spaced btn btn-danger">
+                <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="spaced btn btn-danger"
+                >
                     Delete
                 </button>
             </div>

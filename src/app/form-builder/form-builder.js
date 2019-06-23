@@ -13,6 +13,7 @@ class FormBuilder extends React.Component {
         this.handleSave = this.handleSave.bind(this);
         this.handleQuestionChanged = this.handleQuestionChanged.bind(this);
         this.handleSubInputAdded = this.handleSubInputAdded.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleSave() {
@@ -59,6 +60,14 @@ class FormBuilder extends React.Component {
         });
     }
 
+    handleDelete(layeredIndex) {
+        const questionsCopy = [...this.state.questions];
+        let updatedQuestions = deleteQuestion(questionsCopy, layeredIndex);
+        this.setState({
+            questions: updatedQuestions,
+        });
+    }
+
     render() {
         return (
             <div>
@@ -69,6 +78,7 @@ class FormBuilder extends React.Component {
                             onQuestionChanged={this.handleQuestionChanged}
                             questions={this.state.questions}
                             onSubInputAdded={this.handleSubInputAdded}
+                            onDelete={this.handleDelete}
                         />
                     </div>
                 </form>
@@ -111,6 +121,7 @@ const QUESTIONS = [
                                 ConditionValue: 4,
                                 Question: 'Is your Ford street legal?',
                                 QuestionType: 'YesNo',
+                                SubInputs: [],
                             },
                         ],
                     },
@@ -190,6 +201,28 @@ function traverseArrayForNestedQuestion(layers, question) {
         let nestedQuestion = question.SubInputs[layers[0]];
         layers.splice(0, 1);
         return traverseArrayForNestedQuestion(layers, nestedQuestion);
+    }
+}
+
+function deleteQuestion(questions, layeredIndex) {
+    if (typeof layeredIndex === 'number') {
+        questions.splice(layeredIndex, 1);
+    } else if (typeof layeredIndex === 'string') {
+        let layers = layeredIndex.split('_');
+        let questionWithSubInputs = questions[layers[0]];
+        layers.splice(0, 1);
+        traverseAndDelete(layers, questionWithSubInputs);
+    }
+    return questions;
+}
+
+function traverseAndDelete(layers, question) {
+    if (layers.length === 1) {
+        question.SubInputs.splice(layers[0], 1);
+    } else {
+        let nestedQuestion = question.SubInputs[layers[0]];
+        layers.splice(0, 1);
+        traverseAndDelete(layers, nestedQuestion);
     }
 }
 
