@@ -4,22 +4,17 @@ import QuestionBase from '../question-base/question-base';
 import Condition from '../condition/condition';
 
 function SubInput(props) {
-    const subInputQuestion = props.subInputQuestion;
     return (
         <div className="question-block padded">
             <Condition
-                subInputQuestion={subInputQuestion}
+                subInputQuestion={props.subInputQuestion}
                 onQuestionChanged={props.onQuestionChanged}
-                questionId={props.questionId}
-                layer={props.layer}
-                index={props.index}
+                layeredIndex={props.layeredIndex}
             />
             <QuestionBase
                 onQuestionChanged={props.onQuestionChanged}
-                question={subInputQuestion}
-                questionId={props.questionId}
-                layer={props.layer}
-                index={props.index}
+                question={props.subInputQuestion}
+                layeredIndex={props.layeredIndex}
             />
         </div>
     );

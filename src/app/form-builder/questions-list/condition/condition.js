@@ -1,10 +1,8 @@
 import React from 'react';
 
 function Condition(props) {
-    const questionLayerIndex =
-        props.questionId + '_' + props.layer + '_' + props.index;
     const handleChange = (event) => {
-        props.onQuestionChanged(event, questionLayerIndex);
+        props.onQuestionChanged(event, props.layeredIndex);
     };
     return (
         <div className="form-group">

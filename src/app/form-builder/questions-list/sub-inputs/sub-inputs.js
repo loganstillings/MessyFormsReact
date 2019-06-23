@@ -6,14 +6,13 @@ function SubInputs(props) {
     return (
         <div className="sub-inputs-list">
             {props.subInputs.map((subInputQuestion, index) => {
+                const layeredIndex = props.layeredIndex + '_' + index;
                 return (
                     <div key={index}>
                         <SubInput
                             onQuestionChanged={props.onQuestionChanged}
                             subInputQuestion={subInputQuestion}
-                            questionId={props.questionId}
-                            layer={props.layer}
-                            index={index}
+                            layeredIndex={layeredIndex}
                         />
                         {subInputQuestion.SubInputs &&
                             subInputQuestion.SubInputs.length > 0 && (
@@ -23,8 +22,7 @@ function SubInputs(props) {
                                             props.onQuestionChanged
                                         }
                                         subInputs={subInputQuestion.SubInputs}
-                                        layer={props.layer + 1}
-                                        questionId={props.questionId}
+                                        layeredIndex={layeredIndex}
                                     />
                                 </div>
                             )}
