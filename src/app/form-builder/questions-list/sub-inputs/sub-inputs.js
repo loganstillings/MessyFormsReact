@@ -14,6 +14,7 @@ function SubInputs(props) {
                             subInputQuestion={subInputQuestion}
                             layeredIndex={layeredIndex}
                             parentQuestionType={props.parentQuestionType}
+                            onSubInputAdded={props.onSubInputAdded}
                         />
                         {subInputQuestion.SubInputs &&
                             subInputQuestion.SubInputs.length > 0 && (

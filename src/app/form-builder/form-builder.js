@@ -12,6 +12,7 @@ class FormBuilder extends React.Component {
         };
         this.handleSave = this.handleSave.bind(this);
         this.handleQuestionChanged = this.handleQuestionChanged.bind(this);
+        this.handleSubInputAdded = this.handleSubInputAdded.bind(this);
     }
 
     handleSave() {
@@ -34,7 +35,7 @@ class FormBuilder extends React.Component {
     }
 
     handleInputAdded() {
-        let questions = this.state.questions;
+        let questions = [...this.state.questions];
         this.setState({
             questions: questions.concat([
                 {
@@ -47,6 +48,17 @@ class FormBuilder extends React.Component {
         });
     }
 
+    handleSubInputAdded(layeredIndex) {
+        const questionsCopy = [...this.state.questions];
+        let updatedQuestions = addSubInputToQuestions(
+            questionsCopy,
+            layeredIndex,
+        );
+        this.setState({
+            questions: updatedQuestions,
+        });
+    }
+
     render() {
         return (
             <div>
@@ -56,6 +68,7 @@ class FormBuilder extends React.Component {
                         <QuestionsList
                             onQuestionChanged={this.handleQuestionChanged}
                             questions={this.state.questions}
+                            onSubInputAdded={this.handleSubInputAdded}
                         />
                     </div>
                 </form>
@@ -131,12 +144,41 @@ function updateQuestions(questions, layeredIndex, fieldName, newValue) {
         questions[layeredIndex][fieldName] = newValue;
     } else if (typeof layeredIndex === 'string') {
         let layers = layeredIndex.split('_');
+        let questionWithSubInputs = questions[layers[0]];
         layers.splice(0, 1);
         let question = traverseArrayForNestedQuestion(
             layers,
-            questions[layers[0]],
+            questionWithSubInputs,
         );
         question[fieldName] = newValue;
+    }
+    return questions;
+}
+
+function addSubInputToQuestions(questions, layeredIndex) {
+    if (typeof layeredIndex === 'number') {
+        questions[layeredIndex].SubInputs.push({
+            ConditionType: '',
+            ConditionValue: '',
+            Question: '',
+            QuestionType: '',
+            SubInputs: [],
+        });
+    } else if (typeof layeredIndex === 'string') {
+        let layers = layeredIndex.split('_');
+        let questionWithSubInputs = questions[layers[0]];
+        layers.splice(0, 1);
+        let question = traverseArrayForNestedQuestion(
+            layers,
+            questionWithSubInputs,
+        );
+        question.SubInputs.push({
+            ConditionType: '',
+            ConditionValue: '',
+            Question: '',
+            QuestionType: '',
+            SubInputs: [],
+        });
     }
     return questions;
 }

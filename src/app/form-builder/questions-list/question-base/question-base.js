@@ -4,6 +4,9 @@ function QuestionBase(props) {
     const handleChange = (event) => {
         props.onQuestionChanged(event, props.layeredIndex);
     };
+    const handleSubInputAdded = (event) => {
+        props.onSubInputAdded(props.layeredIndex);
+    };
     return (
         <div>
             <div className="form-group">
@@ -30,7 +33,11 @@ function QuestionBase(props) {
                 </select>
             </div>
             <div className="row padded pull-right">
-                <button type="button" className="spaced btn btn-secondary">
+                <button
+                    type="button"
+                    onClick={handleSubInputAdded}
+                    className="spaced btn btn-secondary"
+                >
                     Add Sub-Input
                 </button>
                 <button type="button" className="spaced btn btn-danger">
