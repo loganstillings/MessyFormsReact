@@ -1,7 +1,7 @@
 import React from 'react';
 
 import QuestionBase from './question-base';
-import SubInputs from './sub-inputs/sub-inputs';
+import SubInputsList from './sub-inputs/sub-inputs-list';
 
 function QuestionsList(props) {
     return props.questions.map((question, index) => {
