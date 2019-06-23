@@ -61,7 +61,7 @@ class FormBuilder extends React.Component {
         const fieldName = event.target.name;
         const newValue = event.target.value;
         const questionsCopy = [...this.state.questions];
-        let updatedQuestions = updateQuestions(
+        const updatedQuestions = updateQuestions(
             questionsCopy,
             layeredIndex,
             fieldName,
@@ -73,7 +73,7 @@ class FormBuilder extends React.Component {
     }
 
     handleInputAdded() {
-        let questions = [...this.state.questions];
+        const questions = [...this.state.questions];
         this.setState({
             questions: questions.concat([
                 {
@@ -88,7 +88,7 @@ class FormBuilder extends React.Component {
 
     handleSubInputAdded(layeredIndex) {
         const questionsCopy = [...this.state.questions];
-        let updatedQuestions = addSubInputToQuestions(
+        const updatedQuestions = addSubInputToQuestions(
             questionsCopy,
             layeredIndex,
         );
@@ -99,7 +99,7 @@ class FormBuilder extends React.Component {
 
     handleDelete(layeredIndex) {
         const questionsCopy = [...this.state.questions];
-        let updatedQuestions = deleteQuestion(questionsCopy, layeredIndex);
+        const updatedQuestions = deleteQuestion(questionsCopy, layeredIndex);
         this.setState({
             questions: updatedQuestions,
         });

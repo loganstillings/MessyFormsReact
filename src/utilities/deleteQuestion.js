@@ -4,8 +4,8 @@ function deleteQuestion(questions, layeredIndex) {
     if (typeof layeredIndex === 'number') {
         questions.splice(layeredIndex, 1);
     } else if (typeof layeredIndex === 'string') {
-        let layers = layeredIndex.split('_');
-        let questionWithSubInputs = questions[layers[0]];
+        const layers = layeredIndex.split('_');
+        const questionWithSubInputs = questions[layers[0]];
         layers.splice(0, 1);
         traverseAndDelete(layers, questionWithSubInputs);
     }

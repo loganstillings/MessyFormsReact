@@ -11,10 +11,10 @@ function addSubInputToQuestions(questions, layeredIndex) {
             SubInputs: [],
         });
     } else if (typeof layeredIndex === 'string') {
-        let layers = layeredIndex.split('_');
-        let questionWithSubInputs = questions[layers[0]];
+        const layers = layeredIndex.split('_');
+        const questionWithSubInputs = questions[layers[0]];
         layers.splice(0, 1);
-        let question = traverseArrayForNestedQuestion(
+        const question = traverseArrayForNestedQuestion(
             layers,
             questionWithSubInputs,
         );
