@@ -41,4 +41,4 @@ function SubInputsList(props) {
     );
 }
 
-export default SubInputs;
+export default SubInputsList;
