@@ -147,7 +147,7 @@ function traverseArrayForNestedQuestion(layers, question) {
     } else {
         let nestedQuestion = question.SubInputs[layers[0]];
         layers.splice(0, 1);
-        traverseArrayForNestedQuestion(layers, nestedQuestion);
+        return traverseArrayForNestedQuestion(layers, nestedQuestion);
     }
 }
 
