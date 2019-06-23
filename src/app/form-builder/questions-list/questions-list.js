@@ -19,6 +19,7 @@ function QuestionsList(props) {
                         onQuestionChanged={props.onQuestionChanged}
                         subInputs={question.SubInputs}
                         layeredIndex={index}
+                        parentQuestionType={question.QuestionType}
                     />
                 )}
             </div>

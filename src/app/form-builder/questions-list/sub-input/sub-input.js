@@ -10,6 +10,7 @@ function SubInput(props) {
                 subInputQuestion={props.subInputQuestion}
                 onQuestionChanged={props.onQuestionChanged}
                 layeredIndex={props.layeredIndex}
+                parentQuestionType={props.parentQuestionType}
             />
             <QuestionBase
                 onQuestionChanged={props.onQuestionChanged}
