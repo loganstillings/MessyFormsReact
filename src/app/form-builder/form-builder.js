@@ -200,9 +200,9 @@ function traverseAndDelete(layers, question) {
     }
 }
 
-function getDefaultConditionValue(question) {
+function getDefaultConditionValue(parentQuestion) {
     let defaltConditionValue = '';
-    switch (question.QuestionType) {
+    switch (parentQuestion.QuestionType) {
         case 'YesNo':
             defaltConditionValue = 'Yes';
             break;
