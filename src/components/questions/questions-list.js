@@ -17,7 +17,7 @@ function QuestionsList(props) {
                     />
                 </div>
                 {question.SubInputs && question.SubInputs.length > 0 && (
-                    <SubInputs
+                    <SubInputsList
                         onQuestionChanged={props.onQuestionChanged}
                         subInputs={question.SubInputs}
                         layeredIndex={index}

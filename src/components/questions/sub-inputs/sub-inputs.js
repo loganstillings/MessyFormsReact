@@ -2,7 +2,7 @@ import React from 'react';
 
 import SubInput from './sub-input';
 
-function SubInputs(props) {
+function SubInputsList(props) {
     return (
         <div className="sub-inputs-list">
             {props.subInputs.map((subInputQuestion, index) => {
@@ -20,7 +20,7 @@ function SubInputs(props) {
                         {subInputQuestion.SubInputs &&
                             subInputQuestion.SubInputs.length > 0 && (
                                 <div>
-                                    <SubInputs
+                                    <SubInputsList
                                         onQuestionChanged={
                                             props.onQuestionChanged
                                         }

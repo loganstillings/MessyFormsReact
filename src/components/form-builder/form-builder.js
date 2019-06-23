@@ -120,8 +120,8 @@ class FormBuilder extends React.Component {
                     </div>
                 </form>
                 <FormActionButtons
-                    onInputAdded={() => this.handleInputAdded()}
-                    onSave={() => this.handleSave()}
+                    onInputAdded={this.handleInputAdded}
+                    onSave={this.handleSave}
                 />
             </div>
         );
