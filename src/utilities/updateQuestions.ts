@@ -11,7 +11,7 @@ function updateQuestions(
 ) {
     const layers = layeredIndex.split('_');
     if (layers.length === 1) {
-        let topLevelQuestion: ITopLevelQuestion =
+        const topLevelQuestion: ITopLevelQuestion =
             questions[parseInt(layers[0])];
         topLevelQuestion[fieldName] = newValue as string;
     } else {

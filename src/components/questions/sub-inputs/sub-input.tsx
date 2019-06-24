@@ -4,6 +4,7 @@ import QuestionBase from '../question-base';
 import Condition from './condition';
 
 import { ISubInput } from '../../../interfaces/sub-input';
+import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 
 interface SubInputProps {
     layeredIndex: string;
@@ -13,7 +14,7 @@ interface SubInputProps {
             | React.ChangeEvent<HTMLInputElement>,
         layeredIndex: string,
     ) => void;
-    parentQuestionType: string;
+    parentQuestionType: QuestionTypesEnum;
     subInputQuestion: ISubInput;
     onSubInputAdded: (layeredIndex: string) => void;
     onDelete: (layeredIndex: string) => void;

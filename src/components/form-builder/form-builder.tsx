@@ -1,9 +1,10 @@
 import React from 'react';
 import Dexie from 'dexie';
 
+import db from '../../db/db';
+
 import '../../styles/styles.css';
 
-import db from '../../db/db';
 import FormActionButtons from './form-action-buttons/form-action-buttons';
 import QuestionsList from '../questions/questions-list';
 
@@ -39,7 +40,7 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
     private questionsTable: Dexie.Table<ITopLevelQuestion, number>;
 
     private getAllQuestions(): Dexie.Promise<ITopLevelQuestion[]> {
-        return this.questionsTable.orderBy(':id').toArray();
+        return this.questionsTable.orderBy(':id').toArray(); // :id refers to primary key Id
     }
 
     componentDidMount() {
@@ -101,15 +102,16 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
 
     handleInputAdded() {
         const questions = [...this.state.questions];
+        const newQuestionArray: ITopLevelQuestion[] = [
+            {
+                Id: questions.length,
+                Question: '',
+                QuestionType: QuestionTypesEnum.Text,
+                SubInputs: [],
+            },
+        ];
         this.setState({
-            questions: questions.concat([
-                {
-                    Id: questions.length,
-                    Question: '',
-                    QuestionType: QuestionTypesEnum.Text,
-                    SubInputs: [],
-                },
-            ]),
+            questions: questions.concat(newQuestionArray),
         });
     }
 

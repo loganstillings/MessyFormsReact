@@ -3,6 +3,7 @@ import React from 'react';
 import SubInput from './sub-input';
 
 import { ISubInput } from '../../../interfaces/sub-input';
+import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 
 interface SubInputsListProps {
     subInputs: ISubInput[];
@@ -15,7 +16,7 @@ interface SubInputsListProps {
     ) => void;
     onSubInputAdded: (layeredIndex: string) => void;
     onDelete: (layeredIndex: string) => void;
-    parentQuestionType: string;
+    parentQuestionType: QuestionTypesEnum;
 }
 
 function SubInputsList(props: SubInputsListProps) {

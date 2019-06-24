@@ -12,28 +12,32 @@ interface ConditionProps {
             | React.ChangeEvent<HTMLInputElement>,
         layeredIndex: string,
     ) => void;
-    parentQuestionType: string;
+    parentQuestionType: QuestionTypesEnum;
     subInputQuestion: ISubInput;
 }
 
-function Condition(props: ConditionProps) {
-    const handleChange = (
+class Condition extends React.Component<ConditionProps, {}> {
+    constructor(props: ConditionProps) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(
         event:
             | React.ChangeEvent<HTMLSelectElement>
             | React.ChangeEvent<HTMLInputElement>,
-    ) => {
-        props.onQuestionChanged(event, props.layeredIndex);
-    };
-    return (
-        <div className="form-group">
-            <div className="inline-block col-md-8">
-                <label htmlFor="ConditionType">Condition</label>
-                {props.parentQuestionType === QuestionTypesEnum.Number && (
+    ): void {
+        this.props.onQuestionChanged(event, this.props.layeredIndex);
+    }
+
+    private getElementForConditionType(): JSX.Element {
+        switch (this.props.parentQuestionType) {
+            case QuestionTypesEnum.Number:
+                return (
                     <select
                         name="ConditionType"
                         className="form-control"
-                        value={props.subInputQuestion.ConditionType}
-                        onChange={handleChange}
+                        value={this.props.subInputQuestion.ConditionType}
+                        onChange={this.handleChange}
                     >
                         <option value={ConditionTypesEnum.Equals}>
                             Equals
@@ -45,53 +49,73 @@ function Condition(props: ConditionProps) {
                             Less Than
                         </option>
                     </select>
-                )}
-                {props.parentQuestionType !== QuestionTypesEnum.Number && (
+                );
+            default:
+                return (
                     <select
                         name="ConditionType"
                         className="form-control"
-                        value={props.subInputQuestion.ConditionType}
-                        onChange={handleChange}
+                        value={this.props.subInputQuestion.ConditionType}
+                        onChange={this.handleChange}
                     >
                         <option value={ConditionTypesEnum.Equals}>
                             Equals
                         </option>
                     </select>
-                )}
-            </div>
-            <div className="inline-block col-md-4">
-                {props.parentQuestionType === QuestionTypesEnum.Text && (
-                    <input
-                        name="ConditionValue"
-                        className="form-control"
-                        type="text"
-                        value={props.subInputQuestion.ConditionValue}
-                        onChange={handleChange}
-                    />
-                )}
-                {props.parentQuestionType === QuestionTypesEnum.Number && (
+                );
+        }
+    }
+
+    private getElementForConditionValue(): JSX.Element {
+        switch (this.props.parentQuestionType) {
+            case QuestionTypesEnum.Number:
+                return (
                     <input
                         name="ConditionValue"
                         className="form-control"
                         type="number"
-                        value={props.subInputQuestion.ConditionValue}
-                        onChange={handleChange}
+                        value={this.props.subInputQuestion.ConditionValue}
+                        onChange={this.handleChange}
                     />
-                )}
-                {props.parentQuestionType === QuestionTypesEnum.YesNo && (
+                );
+            case QuestionTypesEnum.Text:
+                return (
+                    <input
+                        name="ConditionValue"
+                        className="form-control"
+                        type="text"
+                        value={this.props.subInputQuestion.ConditionValue}
+                        onChange={this.handleChange}
+                    />
+                );
+            case QuestionTypesEnum.YesNo:
+                return (
                     <select
                         name="ConditionValue"
                         className="form-control"
-                        value={props.subInputQuestion.ConditionValue}
-                        onChange={handleChange}
+                        value={this.props.subInputQuestion.ConditionValue}
+                        onChange={this.handleChange}
                     >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
-                )}
+                );
+        }
+    }
+
+    render() {
+        return (
+            <div className="form-group">
+                <div className="inline-block col-md-8">
+                    <label htmlFor="ConditionType">Condition</label>
+                    {this.getElementForConditionType()}
+                </div>
+                <div className="inline-block col-md-4">
+                    {this.getElementForConditionValue()}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Condition;

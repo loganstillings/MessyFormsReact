@@ -50,9 +50,15 @@ function QuestionBase(props: QuestionBaseProps) {
                     onChange={handleChange}
                     name="QuestionType"
                 >
-                    <option value={QuestionTypesEnum.Text}>Text</option>
-                    <option value={QuestionTypesEnum.YesNo}>YesNo</option>
-                    <option value={QuestionTypesEnum.Number}>Number</option>
+                    <option value={QuestionTypesEnum.Text}>
+                        {QuestionTypesEnum.Text}
+                    </option>
+                    <option value={QuestionTypesEnum.YesNo}>
+                        {QuestionTypesEnum.YesNo}
+                    </option>
+                    <option value={QuestionTypesEnum.Number}>
+                        {QuestionTypesEnum.Number}
+                    </option>
                 </select>
             </div>
             <div className="row padded pull-right">
