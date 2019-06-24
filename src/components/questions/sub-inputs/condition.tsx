@@ -1,7 +1,24 @@
 import React from 'react';
+import { ISubInput } from '../../../interfaces/sub-input';
 
-function Condition(props) {
-    const handleChange = (event) => {
+interface ConditionProps {
+    layeredIndex: string;
+    onQuestionChanged: (
+        event:
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLInputElement>,
+        layeredIndex: string,
+    ) => void;
+    parentQuestionType: string;
+    subInputQuestion: ISubInput;
+}
+
+function Condition(props: ConditionProps) {
+    const handleChange = (
+        event:
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLInputElement>,
+    ) => {
         props.onQuestionChanged(event, props.layeredIndex);
     };
     return (

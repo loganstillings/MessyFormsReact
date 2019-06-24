@@ -3,7 +3,23 @@ import React from 'react';
 import QuestionBase from '../question-base';
 import Condition from './condition';
 
-function SubInput(props) {
+import { ISubInput } from '../../../interfaces/sub-input';
+
+interface SubInputProps {
+    layeredIndex: string;
+    onQuestionChanged: (
+        event:
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLInputElement>,
+        layeredIndex: string,
+    ) => void;
+    parentQuestionType: string;
+    subInputQuestion: ISubInput;
+    onSubInputAdded: (layeredIndex: string) => void;
+    onDelete: (layeredIndex: string) => void;
+}
+
+function SubInput(props: SubInputProps) {
     return (
         <div className="question-block padded">
             <Condition

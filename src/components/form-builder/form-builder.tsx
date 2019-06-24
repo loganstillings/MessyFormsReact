@@ -9,14 +9,23 @@ import addSubInputToQuestions from '../../utilities/addSubInputToQuestions';
 import deleteQuestion from '../../utilities/deleteQuestion';
 import updateQuestions from '../../utilities/updateQuestions';
 
-class FormBuilder extends React.Component {
-    constructor(props) {
+import { IQuestion } from '../../interfaces/question';
+
+interface FormBuilderProps {}
+
+interface FormBuilderState {
+    questions: IQuestion[];
+}
+
+class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
+    constructor(props: FormBuilderProps) {
         super(props);
         this.state = {
             questions: [],
         };
         this.handleSave = this.handleSave.bind(this);
         this.handleQuestionChanged = this.handleQuestionChanged.bind(this);
+        this.handleInputAdded = this.handleInputAdded.bind(this);
         this.handleSubInputAdded = this.handleSubInputAdded.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -49,7 +58,9 @@ class FormBuilder extends React.Component {
                         });
                         db.table('questions')
                             .bulkPut(arr)
-                            .catch(this.catchError);
+                            .catch((err) => {
+                                console.log(err);
+                            });
                         this.setState({
                             questions: arr,
                         });
@@ -57,7 +68,12 @@ class FormBuilder extends React.Component {
             });
     }
 
-    handleQuestionChanged(event, layeredIndex) {
+    handleQuestionChanged(
+        event:
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLInputElement>,
+        layeredIndex: string,
+    ) {
         const fieldName = event.target.name;
         const newValue = event.target.value;
         const questionsCopy = [...this.state.questions];
@@ -86,7 +102,7 @@ class FormBuilder extends React.Component {
         });
     }
 
-    handleSubInputAdded(layeredIndex) {
+    handleSubInputAdded(layeredIndex: string) {
         const questionsCopy = [...this.state.questions];
         const updatedQuestions = addSubInputToQuestions(
             questionsCopy,
@@ -97,7 +113,7 @@ class FormBuilder extends React.Component {
         });
     }
 
-    handleDelete(layeredIndex) {
+    handleDelete(layeredIndex: string) {
         const questionsCopy = [...this.state.questions];
         const updatedQuestions = deleteQuestion(questionsCopy, layeredIndex);
         this.setState({

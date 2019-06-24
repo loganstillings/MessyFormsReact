@@ -1,13 +1,32 @@
 import React from 'react';
 
-function QuestionBase(props) {
-    const handleChange = (event) => {
+import { IQuestion } from '../../interfaces/question';
+
+interface QuestionBaseProps {
+    layeredIndex: string;
+    onQuestionChanged: (
+        event:
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLInputElement>,
+        layeredIndex: string,
+    ) => void;
+    onSubInputAdded: (layeredIndex: string) => void;
+    onDelete: (layeredIndex: string) => void;
+    question: IQuestion;
+}
+
+function QuestionBase(props: QuestionBaseProps) {
+    const handleChange = (
+        event:
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLInputElement>,
+    ) => {
         props.onQuestionChanged(event, props.layeredIndex);
     };
-    const handleSubInputAdded = (event) => {
+    const handleSubInputAdded = () => {
         props.onSubInputAdded(props.layeredIndex);
     };
-    const handleDelete = (event) => {
+    const handleDelete = () => {
         props.onDelete(props.layeredIndex);
     };
     return (
