@@ -10,7 +10,7 @@ function updateQuestions(
 ) {
     const layers = layeredIndex.split('_');
     if (layers.length === 1) {
-        let question = questions[parseInt(layers[0])] as any;
+        const question = questions[parseInt(layers[0])] as any;
         question[fieldName] = newValue;
     } else {
         const questionWithSubInputs = questions[parseInt(layers[0])];
