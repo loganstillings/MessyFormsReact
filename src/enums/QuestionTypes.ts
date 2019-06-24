@@ -1,5 +1,5 @@
 export enum QuestionTypesEnum {
-  Text = 1,
-  YesNo = 2,
-  Number = 3,
+    Text = 'Text',
+    YesNo = 'YesNo',
+    Number = 'Number',
 }

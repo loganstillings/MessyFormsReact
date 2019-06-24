@@ -1,5 +1,7 @@
-function getDefaultConditionValue(parentQuestion) {
-    let defaltConditionValue = '';
+import { IQuestion } from '../interfaces/question';
+
+function getDefaultConditionValue(parentQuestion: IQuestion) {
+    let defaltConditionValue: string | number = '';
     switch (parentQuestion.QuestionType) {
         case 'YesNo':
             defaltConditionValue = 'Yes';
