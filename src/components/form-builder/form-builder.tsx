@@ -35,7 +35,7 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
     componentDidMount() {
         db.table('questions')
             .toArray()
-            .then((questions) => {
+            .then((questions: ITopLevelQuestion[]) => {
                 this.setState({ questions });
             });
     }
@@ -45,24 +45,30 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
         db.table('questions')
             .orderBy(':id')
             .toArray()
-            .then((existingQuestions) => {
-                const questionsToRemove = existingQuestions.filter((eq) => {
-                    return arr.findIndex((q) => q.Id === eq.Id) === -1;
-                });
+            .then((existingQuestions: ITopLevelQuestion[]) => {
+                const questionsToRemove = existingQuestions.filter(
+                    (eq: ITopLevelQuestion) => {
+                        return (
+                            arr.findIndex(
+                                (q: ITopLevelQuestion) => q.Id === eq.Id,
+                            ) === -1
+                        );
+                    },
+                );
                 db.table('questions')
                     .bulkDelete(
-                        questionsToRemove.map((question) => question.Id),
+                        questionsToRemove.map(
+                            (question: ITopLevelQuestion) => question.Id,
+                        ),
                     )
                     .then(() => {
-                        arr.map((question, index) => {
-                            question.Id = index;
-                            return question;
-                        });
-                        db.table('questions')
-                            .bulkPut(arr)
-                            .catch((err) => {
-                                console.log(err);
-                            });
+                        arr.map(
+                            (question: ITopLevelQuestion, index: number) => {
+                                question.Id = index;
+                                return question;
+                            },
+                        );
+                        db.table('questions').bulkPut(arr);
                         this.setState({
                             questions: arr,
                         });
