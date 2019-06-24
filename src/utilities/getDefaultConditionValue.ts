@@ -1,12 +1,13 @@
 import { IQuestionBase } from '../interfaces/question-base';
+import { QuestionTypesEnum } from '../enums/QuestionTypes';
 
 function getDefaultConditionValue(parentQuestion: IQuestionBase) {
     let defaltConditionValue: string | number = '';
     switch (parentQuestion.QuestionType) {
-        case 'YesNo':
+        case QuestionTypesEnum.YesNo:
             defaltConditionValue = 'Yes';
             break;
-        case 'Number':
+        case QuestionTypesEnum.Number:
             defaltConditionValue = 0;
             break;
         default:

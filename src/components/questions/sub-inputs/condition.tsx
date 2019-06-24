@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { ISubInput } from '../../../interfaces/sub-input';
+import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
+import { ConditionTypesEnum } from '../../../enums/ConditionTypes';
 
 interface ConditionProps {
     layeredIndex: string;
@@ -26,31 +28,39 @@ function Condition(props: ConditionProps) {
         <div className="form-group">
             <div className="inline-block col-md-8">
                 <label htmlFor="ConditionType">Condition</label>
-                {props.parentQuestionType === 'Number' && (
+                {props.parentQuestionType === QuestionTypesEnum.Number && (
                     <select
                         name="ConditionType"
                         className="form-control"
                         value={props.subInputQuestion.ConditionType}
                         onChange={handleChange}
                     >
-                        <option value="Equals">Equals</option>
-                        <option value="GreaterThan">Greater Than</option>
-                        <option value="LessThan">Less Than</option>
+                        <option value={ConditionTypesEnum.Equals}>
+                            Equals
+                        </option>
+                        <option value={ConditionTypesEnum.GreaterThan}>
+                            Greater Than
+                        </option>
+                        <option value={ConditionTypesEnum.LessThan}>
+                            Less Than
+                        </option>
                     </select>
                 )}
-                {props.parentQuestionType !== 'Number' && (
+                {props.parentQuestionType !== QuestionTypesEnum.Number && (
                     <select
                         name="ConditionType"
                         className="form-control"
                         value={props.subInputQuestion.ConditionType}
                         onChange={handleChange}
                     >
-                        <option value="Equals">Equals</option>
+                        <option value={ConditionTypesEnum.Equals}>
+                            Equals
+                        </option>
                     </select>
                 )}
             </div>
             <div className="inline-block col-md-4">
-                {props.parentQuestionType === 'Text' && (
+                {props.parentQuestionType === QuestionTypesEnum.Text && (
                     <input
                         name="ConditionValue"
                         className="form-control"
@@ -59,7 +69,7 @@ function Condition(props: ConditionProps) {
                         onChange={handleChange}
                     />
                 )}
-                {props.parentQuestionType === 'Number' && (
+                {props.parentQuestionType === QuestionTypesEnum.Number && (
                     <input
                         name="ConditionValue"
                         className="form-control"
@@ -68,7 +78,7 @@ function Condition(props: ConditionProps) {
                         onChange={handleChange}
                     />
                 )}
-                {props.parentQuestionType === 'YesNo' && (
+                {props.parentQuestionType === QuestionTypesEnum.YesNo && (
                     <select
                         name="ConditionValue"
                         className="form-control"

@@ -11,6 +11,7 @@ import deleteQuestion from '../../utilities/deleteQuestion';
 import updateQuestions from '../../utilities/updateQuestions';
 
 import { ITopLevelQuestion } from '../../interfaces/top-level-question';
+import { QuestionTypesEnum } from '../../enums/QuestionTypes';
 
 interface FormBuilderProps {}
 
@@ -96,7 +97,7 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
                 {
                     Id: questions.length + 1,
                     Question: '',
-                    QuestionType: 'Text',
+                    QuestionType: QuestionTypesEnum.Text,
                     SubInputs: [],
                 },
             ]),

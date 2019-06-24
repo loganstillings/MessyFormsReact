@@ -2,6 +2,8 @@ import getDefaultConditionValue from './getDefaultConditionValue';
 import traverseArrayForNestedQuestion from './traverseArrayForNestedQuestion';
 
 import { ITopLevelQuestion } from '../interfaces/top-level-question';
+import { ConditionTypesEnum } from '../enums/ConditionTypes';
+import { QuestionTypesEnum } from '../enums/QuestionTypes';
 
 function addSubInputToQuestions(
     questions: ITopLevelQuestion[],
@@ -11,10 +13,10 @@ function addSubInputToQuestions(
     if (layers.length === 1) {
         const layeredIndex = parseInt(layers[0]);
         questions[layeredIndex].SubInputs.push({
-            ConditionType: 'Equals',
+            ConditionType: ConditionTypesEnum.Equals,
             ConditionValue: getDefaultConditionValue(questions[layeredIndex]),
             Question: '',
-            QuestionType: 'Text',
+            QuestionType: QuestionTypesEnum.Text,
             SubInputs: [],
         });
     } else {
@@ -25,10 +27,10 @@ function addSubInputToQuestions(
             questionWithSubInputs,
         );
         question.SubInputs.push({
-            ConditionType: 'Equals',
+            ConditionType: ConditionTypesEnum.Equals,
             ConditionValue: getDefaultConditionValue(question),
             Question: '',
-            QuestionType: 'Text',
+            QuestionType: QuestionTypesEnum.Text,
             SubInputs: [],
         });
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IQuestionBase } from '../../interfaces/question-base';
+import { QuestionTypesEnum } from '../../enums/QuestionTypes';
 
 interface QuestionBaseProps {
     layeredIndex: string;
@@ -49,9 +50,9 @@ function QuestionBase(props: QuestionBaseProps) {
                     onChange={handleChange}
                     name="QuestionType"
                 >
-                    <option value="Text">Text</option>
-                    <option value="YesNo">YesNo</option>
-                    <option value="Number">Number</option>
+                    <option value={QuestionTypesEnum.Text}>Text</option>
+                    <option value={QuestionTypesEnum.YesNo}>YesNo</option>
+                    <option value={QuestionTypesEnum.Number}>Number</option>
                 </select>
             </div>
             <div className="row padded pull-right">
