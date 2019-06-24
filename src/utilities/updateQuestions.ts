@@ -1,6 +1,7 @@
 import traverseArrayForNestedQuestion from './traverseArrayForNestedQuestion';
 
 import { ITopLevelQuestion } from '../interfaces/top-level-question';
+import { ISubInput } from '../interfaces/sub-input';
 
 function updateQuestions(
     questions: ITopLevelQuestion[],
@@ -10,16 +11,17 @@ function updateQuestions(
 ) {
     const layers = layeredIndex.split('_');
     if (layers.length === 1) {
-        const question = questions[parseInt(layers[0])] as any;
-        question[fieldName] = newValue;
+        let topLevelQuestion: ITopLevelQuestion =
+            questions[parseInt(layers[0])];
+        topLevelQuestion[fieldName] = newValue as string;
     } else {
         const questionWithSubInputs = questions[parseInt(layers[0])];
         layers.splice(0, 1);
-        const question = traverseArrayForNestedQuestion(
+        const subInput: ISubInput = traverseArrayForNestedQuestion(
             layers,
             questionWithSubInputs,
-        ) as any;
-        question[fieldName] = newValue;
+        );
+        subInput[fieldName] = newValue;
     }
     return questions;
 }
