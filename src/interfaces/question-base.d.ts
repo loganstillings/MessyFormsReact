@@ -6,10 +6,5 @@ export interface IQuestionBase {
     Question: string;
     QuestionType: QuestionTypesEnum;
     SubInputs: ISubInput[];
-    [key: string]:
-        | string
-        | QuestionTypesEnum
-        | ISubInput[]
-        | ConditionTypesEnum
-        | number;
+    [key: string]: string | QuestionTypesEnum | ISubInput[];
 }
