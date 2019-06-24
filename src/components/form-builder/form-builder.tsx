@@ -1,4 +1,5 @@
 import React from 'react';
+import Dexie from 'dexie';
 
 import '../../styles/styles.css';
 
@@ -25,55 +26,57 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
         this.state = {
             questions: [],
         };
+
         this.handleSave = this.handleSave.bind(this);
         this.handleQuestionChanged = this.handleQuestionChanged.bind(this);
         this.handleInputAdded = this.handleInputAdded.bind(this);
         this.handleSubInputAdded = this.handleSubInputAdded.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+
+        this.questionsTable = db.table('questions');
+    }
+
+    private questionsTable: Dexie.Table<ITopLevelQuestion, number>;
+
+    private getAllQuestions(): Dexie.Promise<ITopLevelQuestion[]> {
+        return this.questionsTable.orderBy(':id').toArray();
     }
 
     componentDidMount() {
-        db.table('questions')
-            .toArray()
-            .then((questions: ITopLevelQuestion[]) => {
-                this.setState({ questions });
-            });
+        this.getAllQuestions().then((questions: ITopLevelQuestion[]) => {
+            this.setState({ questions });
+        });
     }
 
     handleSave() {
-        const arr = [...this.state.questions];
-        db.table('questions')
-            .orderBy(':id')
-            .toArray()
-            .then((existingQuestions: ITopLevelQuestion[]) => {
-                const questionsToRemove = existingQuestions.filter(
-                    (eq: ITopLevelQuestion) => {
-                        return (
-                            arr.findIndex(
-                                (q: ITopLevelQuestion) => q.Id === eq.Id,
-                            ) === -1
-                        );
-                    },
-                );
-                db.table('questions')
-                    .bulkDelete(
-                        questionsToRemove.map(
-                            (question: ITopLevelQuestion) => question.Id,
-                        ),
-                    )
-                    .then(() => {
-                        arr.map(
-                            (question: ITopLevelQuestion, index: number) => {
-                                question.Id = index;
-                                return question;
-                            },
-                        );
-                        db.table('questions').bulkPut(arr);
-                        this.setState({
-                            questions: arr,
-                        });
-                    });
+        const currentQuestions = [...this.state.questions];
+        this.getAllQuestions().then(
+            (existingQuestions: ITopLevelQuestion[]) => {
+                this.mergeQuestions(existingQuestions, currentQuestions);
+            },
+        );
+    }
+
+    private mergeQuestions(
+        existingQuestions: ITopLevelQuestion[],
+        currentQuestions: ITopLevelQuestion[],
+    ) {
+        const questionIdsToRemove = existingQuestions
+            .filter(
+                (topLevelQuestion) =>
+                    topLevelQuestion.Id >= currentQuestions.length,
+            )
+            .map((question) => question.Id);
+        this.questionsTable.bulkDelete(questionIdsToRemove).then(() => {
+            currentQuestions.map(
+                (currentQuestion, index) => (currentQuestion.Id = index),
+            );
+            this.questionsTable.bulkPut(currentQuestions).then(() => {
+                this.setState({
+                    questions: currentQuestions,
+                });
             });
+        });
     }
 
     handleQuestionChanged(
@@ -101,7 +104,7 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
         this.setState({
             questions: questions.concat([
                 {
-                    Id: questions.length + 1,
+                    Id: questions.length,
                     Question: '',
                     QuestionType: QuestionTypesEnum.Text,
                     SubInputs: [],
