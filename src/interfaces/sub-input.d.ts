@@ -1,6 +1,6 @@
-import { IQuestion } from './question';
+import { IQuestionBase } from './question-base';
 
-export interface ISubInput extends IQuestion {
+export interface ISubInput extends IQuestionBase {
     ConditionType: string;
     ConditionValue: string | number;
 }

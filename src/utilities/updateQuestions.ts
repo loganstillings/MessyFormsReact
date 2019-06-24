@@ -1,8 +1,9 @@
 import traverseArrayForNestedQuestion from './traverseArrayForNestedQuestion';
-import { IQuestion } from '../interfaces/question';
+
+import { ITopLevelQuestion } from '../interfaces/top-level-question';
 
 function updateQuestions(
-    questions: IQuestion[],
+    questions: ITopLevelQuestion[],
     layeredIndex: string,
     fieldName: string,
     newValue: string | number,

@@ -1,9 +1,9 @@
-import { IQuestion } from '../interfaces/question';
+import { IQuestionBase } from '../interfaces/question-base';
 import { ISubInput } from '../interfaces/sub-input';
 
 function traverseArrayForNestedQuestion(
     layers: string[],
-    question: IQuestion,
+    question: IQuestionBase,
 ): ISubInput {
     if (layers.length === 1) {
         return question.SubInputs[parseInt(layers[0])];

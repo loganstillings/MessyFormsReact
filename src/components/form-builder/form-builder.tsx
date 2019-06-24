@@ -10,12 +10,12 @@ import addSubInputToQuestions from '../../utilities/addSubInputToQuestions';
 import deleteQuestion from '../../utilities/deleteQuestion';
 import updateQuestions from '../../utilities/updateQuestions';
 
-import { IQuestion } from '../../interfaces/question';
+import { ITopLevelQuestion } from '../../interfaces/top-level-question';
 
 interface FormBuilderProps {}
 
 interface FormBuilderState {
-    questions: IQuestion[];
+    questions: ITopLevelQuestion[];
 }
 
 class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {

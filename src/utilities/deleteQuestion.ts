@@ -1,7 +1,8 @@
 import traverseAndDelete from './traverseAndDelete';
-import { IQuestion } from '../interfaces/question';
 
-function deleteQuestion(questions: IQuestion[], layeredIndex: string) {
+import { ITopLevelQuestion } from '../interfaces/top-level-question';
+
+function deleteQuestion(questions: ITopLevelQuestion[], layeredIndex: string) {
     const layers = layeredIndex.split('_');
     if (layers.length === 1) {
         questions.splice(parseInt(layers[0]), 1);

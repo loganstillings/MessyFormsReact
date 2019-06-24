@@ -1,6 +1,6 @@
-import { IQuestion } from '../interfaces/question';
+import { IQuestionBase } from '../interfaces/question-base';
 
-function getDefaultConditionValue(parentQuestion: IQuestion) {
+function getDefaultConditionValue(parentQuestion: IQuestionBase) {
     let defaltConditionValue: string | number = '';
     switch (parentQuestion.QuestionType) {
         case 'YesNo':

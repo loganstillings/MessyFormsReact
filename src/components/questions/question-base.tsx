@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IQuestion } from '../../interfaces/question';
+import { IQuestionBase } from '../../interfaces/question-base';
 
 interface QuestionBaseProps {
     layeredIndex: string;
@@ -12,7 +12,7 @@ interface QuestionBaseProps {
     ) => void;
     onSubInputAdded: (layeredIndex: string) => void;
     onDelete: (layeredIndex: string) => void;
-    question: IQuestion;
+    question: IQuestionBase;
 }
 
 function QuestionBase(props: QuestionBaseProps) {

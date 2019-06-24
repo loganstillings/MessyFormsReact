@@ -1,14 +1,16 @@
 import getDefaultConditionValue from './getDefaultConditionValue';
 import traverseArrayForNestedQuestion from './traverseArrayForNestedQuestion';
 
-import { IQuestion } from '../interfaces/question';
+import { ITopLevelQuestion } from '../interfaces/top-level-question';
 
-function addSubInputToQuestions(questions: IQuestion[], layeredIndex: string) {
+function addSubInputToQuestions(
+    questions: ITopLevelQuestion[],
+    layeredIndex: string,
+) {
     const layers = layeredIndex.split('_');
     if (layers.length === 1) {
         const layeredIndex = parseInt(layers[0]);
         questions[layeredIndex].SubInputs.push({
-            Id: 0,
             ConditionType: 'Equals',
             ConditionValue: getDefaultConditionValue(questions[layeredIndex]),
             Question: '',
@@ -23,7 +25,6 @@ function addSubInputToQuestions(questions: IQuestion[], layeredIndex: string) {
             questionWithSubInputs,
         );
         question.SubInputs.push({
-            Id: 0,
             ConditionType: 'Equals',
             ConditionValue: getDefaultConditionValue(question),
             Question: '',

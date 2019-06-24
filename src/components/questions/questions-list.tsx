@@ -3,10 +3,10 @@ import React from 'react';
 import QuestionBase from './question-base';
 import SubInputsList from './sub-inputs/sub-inputs-list';
 
-import { IQuestion } from '../../interfaces/question';
+import { ITopLevelQuestion } from '../../interfaces/top-level-question';
 
 interface QuestionsListProps {
-    questions: IQuestion[];
+    questions: ITopLevelQuestion[];
     onQuestionChanged: (
         event:
             | React.ChangeEvent<HTMLSelectElement>
@@ -19,7 +19,7 @@ interface QuestionsListProps {
 
 function QuestionsList(props: QuestionsListProps) {
     const questionsList = props.questions.map(
-        (question: IQuestion, index: number) => {
+        (question: ITopLevelQuestion, index: number) => {
             return (
                 <div key={question.Id}>
                     <div className="question-block padded">
