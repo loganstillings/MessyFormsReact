@@ -4,7 +4,7 @@ import { ISubInput } from '../../../interfaces/sub-input';
 import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 import { ConditionTypesEnum } from '../../../enums/ConditionTypes';
 
-interface ConditionProps {
+interface IConditionProps {
     layeredIndex: string;
     onQuestionChanged: (
         event:
@@ -16,20 +16,18 @@ interface ConditionProps {
     subInputQuestion: ISubInput;
 }
 
-class Condition extends React.Component<ConditionProps, {}> {
-    constructor(props: ConditionProps) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(
+interface IConditionState {}
+
+class Condition extends React.Component<IConditionProps, IConditionState> {
+    private _handleChange = (
         event:
             | React.ChangeEvent<HTMLSelectElement>
             | React.ChangeEvent<HTMLInputElement>,
-    ): void {
+    ): void => {
         this.props.onQuestionChanged(event, this.props.layeredIndex);
-    }
+    };
 
-    private getElementForConditionType(): JSX.Element {
+    private _getElementForConditionType = (): JSX.Element => {
         switch (this.props.parentQuestionType) {
             case QuestionTypesEnum.Number:
                 return (
@@ -37,7 +35,7 @@ class Condition extends React.Component<ConditionProps, {}> {
                         name="ConditionType"
                         className="form-control"
                         value={this.props.subInputQuestion.ConditionType}
-                        onChange={this.handleChange}
+                        onChange={this._handleChange}
                     >
                         <option value={ConditionTypesEnum.Equals}>
                             Equals
@@ -56,7 +54,7 @@ class Condition extends React.Component<ConditionProps, {}> {
                         name="ConditionType"
                         className="form-control"
                         value={this.props.subInputQuestion.ConditionType}
-                        onChange={this.handleChange}
+                        onChange={this._handleChange}
                     >
                         <option value={ConditionTypesEnum.Equals}>
                             Equals
@@ -64,9 +62,9 @@ class Condition extends React.Component<ConditionProps, {}> {
                     </select>
                 );
         }
-    }
+    };
 
-    private getElementForConditionValue(): JSX.Element {
+    private _getElementForConditionValue = (): JSX.Element => {
         switch (this.props.parentQuestionType) {
             case QuestionTypesEnum.Number:
                 return (
@@ -75,7 +73,7 @@ class Condition extends React.Component<ConditionProps, {}> {
                         className="form-control"
                         type="number"
                         value={this.props.subInputQuestion.ConditionValue}
-                        onChange={this.handleChange}
+                        onChange={this._handleChange}
                     />
                 );
             case QuestionTypesEnum.Text:
@@ -85,7 +83,7 @@ class Condition extends React.Component<ConditionProps, {}> {
                         className="form-control"
                         type="text"
                         value={this.props.subInputQuestion.ConditionValue}
-                        onChange={this.handleChange}
+                        onChange={this._handleChange}
                     />
                 );
             case QuestionTypesEnum.YesNo:
@@ -94,24 +92,26 @@ class Condition extends React.Component<ConditionProps, {}> {
                         name="ConditionValue"
                         className="form-control"
                         value={this.props.subInputQuestion.ConditionValue}
-                        onChange={this.handleChange}
+                        onChange={this._handleChange}
                     >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
                 );
+            default:
+                return undefined as never;
         }
-    }
+    };
 
-    render() {
+    public render() {
         return (
             <div className="form-group">
                 <div className="inline-block col-md-8">
                     <label htmlFor="ConditionType">Condition</label>
-                    {this.getElementForConditionType()}
+                    {this._getElementForConditionType()}
                 </div>
                 <div className="inline-block col-md-4">
-                    {this.getElementForConditionValue()}
+                    {this._getElementForConditionValue()}
                 </div>
             </div>
         );

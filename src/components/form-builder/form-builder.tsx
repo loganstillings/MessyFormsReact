@@ -8,88 +8,84 @@ import '../../styles/styles.css';
 import FormActionButtons from './form-action-buttons/form-action-buttons';
 import QuestionsList from '../questions/questions-list';
 
-import addSubInputToQuestions from '../../utilities/addSubInputToQuestions';
-import deleteQuestion from '../../utilities/deleteQuestion';
-import updateQuestions from '../../utilities/updateQuestions';
-
 import { ITopLevelQuestion } from '../../interfaces/top-level-question';
 import { QuestionTypesEnum } from '../../enums/QuestionTypes';
+import Utilities from '../../utilities/utilities';
 
-interface FormBuilderProps {}
+interface IFormBuilderProps {}
 
-interface FormBuilderState {
+interface IFormBuilderState {
     questions: ITopLevelQuestion[];
 }
 
-class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
-    constructor(props: FormBuilderProps) {
+class FormBuilder extends React.Component<
+    IFormBuilderProps,
+    IFormBuilderState
+> {
+    constructor(props: IFormBuilderProps) {
         super(props);
         this.state = {
             questions: [],
         };
-
-        this.handleSave = this.handleSave.bind(this);
-        this.handleQuestionChanged = this.handleQuestionChanged.bind(this);
-        this.handleInputAdded = this.handleInputAdded.bind(this);
-        this.handleSubInputAdded = this.handleSubInputAdded.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-
-        this.questionsTable = db.table('questions');
+        this._questionsTable = db.table('questions');
     }
 
-    private questionsTable: Dexie.Table<ITopLevelQuestion, number>;
+    private _questionsTable: Dexie.Table<ITopLevelQuestion, number>;
 
-    private getAllQuestions(): Dexie.Promise<ITopLevelQuestion[]> {
-        return this.questionsTable.orderBy(':id').toArray(); // :id refers to primary key Id
-    }
+    private _getAllQuestions = (): Dexie.Promise<ITopLevelQuestion[]> => {
+        return this._questionsTable.orderBy(':id').toArray(); // :id refers to primary key Id
+    };
 
-    componentDidMount() {
-        this.getAllQuestions().then((questions: ITopLevelQuestion[]) => {
+    public componentDidMount() {
+        this._getAllQuestions().then((questions: ITopLevelQuestion[]) => {
             this.setState({ questions });
         });
     }
 
-    handleSave() {
+    private _handleSave = () => {
         const currentQuestions = [...this.state.questions];
-        this.getAllQuestions().then(
+        this._getAllQuestions().then(
             (existingQuestions: ITopLevelQuestion[]) => {
-                this.mergeQuestions(existingQuestions, currentQuestions);
+                this._mergeQuestions(existingQuestions, currentQuestions);
             },
         );
-    }
+    };
 
-    private mergeQuestions(
+    private _mergeQuestions = (
         existingQuestions: ITopLevelQuestion[],
         currentQuestions: ITopLevelQuestion[],
-    ) {
-        const questionIdsToRemove = existingQuestions
+    ) => {
+        const questionIdsToRemove = existingQuestions // Removing questions that are greater than the length of the current questions
             .filter(
                 (topLevelQuestion) =>
                     topLevelQuestion.Id >= currentQuestions.length,
             )
             .map((question) => question.Id);
-        this.questionsTable.bulkDelete(questionIdsToRemove).then(() => {
+        this._questionsTable.bulkDelete(questionIdsToRemove).then(() => {
+            // delete those questions
             currentQuestions.map(
+                // assign Id of current questions to be the index
                 (currentQuestion, index) => (currentQuestion.Id = index),
             );
-            this.questionsTable.bulkPut(currentQuestions).then(() => {
+            this._questionsTable.bulkPut(currentQuestions).then(() => {
+                // update questions list
                 this.setState({
                     questions: currentQuestions,
                 });
             });
         });
-    }
+    };
 
-    handleQuestionChanged(
+    private _handleQuestionChanged = (
         event:
             | React.ChangeEvent<HTMLSelectElement>
             | React.ChangeEvent<HTMLInputElement>,
         layeredIndex: string,
-    ) {
+    ) => {
         const fieldName = event.target.name;
         const newValue = event.target.value;
         const questionsCopy = [...this.state.questions];
-        const updatedQuestions = updateQuestions(
+        const updatedQuestions = Utilities.updateQuestions(
             questionsCopy,
             layeredIndex,
             fieldName,
@@ -98,9 +94,9 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
         this.setState({
             questions: updatedQuestions,
         });
-    }
+    };
 
-    handleInputAdded() {
+    private _handleInputAdded = () => {
         const questions = [...this.state.questions];
         const newQuestionArray: ITopLevelQuestion[] = [
             {
@@ -113,44 +109,47 @@ class FormBuilder extends React.Component<FormBuilderProps, FormBuilderState> {
         this.setState({
             questions: questions.concat(newQuestionArray),
         });
-    }
+    };
 
-    handleSubInputAdded(layeredIndex: string) {
+    private _handleSubInputAdded = (layeredIndex: string) => {
         const questionsCopy = [...this.state.questions];
-        const updatedQuestions = addSubInputToQuestions(
+        const updatedQuestions = Utilities.addSubInputToQuestions(
             questionsCopy,
             layeredIndex,
         );
         this.setState({
             questions: updatedQuestions,
         });
-    }
+    };
 
-    handleDelete(layeredIndex: string) {
+    private _handleDelete = (layeredIndex: string) => {
         const questionsCopy = [...this.state.questions];
-        const updatedQuestions = deleteQuestion(questionsCopy, layeredIndex);
+        const updatedQuestions = Utilities.deleteQuestion(
+            questionsCopy,
+            layeredIndex,
+        );
         this.setState({
             questions: updatedQuestions,
         });
-    }
+    };
 
-    render() {
+    public render() {
         return (
             <div>
                 <form>
                     <div className="card padded">
                         <h1>Form Builder</h1>
                         <QuestionsList
-                            onQuestionChanged={this.handleQuestionChanged}
+                            onQuestionChanged={this._handleQuestionChanged}
                             questions={this.state.questions}
-                            onSubInputAdded={this.handleSubInputAdded}
-                            onDelete={this.handleDelete}
+                            onSubInputAdded={this._handleSubInputAdded}
+                            onDelete={this._handleDelete}
                         />
                     </div>
                 </form>
                 <FormActionButtons
-                    onInputAdded={this.handleInputAdded}
-                    onSave={this.handleSave}
+                    onInputAdded={this._handleInputAdded}
+                    onSave={this._handleSave}
                 />
             </div>
         );

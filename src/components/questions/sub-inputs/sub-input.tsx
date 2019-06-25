@@ -2,7 +2,6 @@ import React from 'react';
 
 import QuestionBase from '../question-base';
 import Condition from './condition';
-
 import { ISubInput } from '../../../interfaces/sub-input';
 import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 

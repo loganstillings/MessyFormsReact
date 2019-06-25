@@ -2,7 +2,6 @@ import React from 'react';
 
 import QuestionBase from './question-base';
 import SubInputsList from './sub-inputs/sub-inputs-list';
-
 import { ITopLevelQuestion } from '../../interfaces/top-level-question';
 
 interface QuestionsListProps {

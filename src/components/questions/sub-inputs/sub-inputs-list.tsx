@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SubInput from './sub-input';
-
 import { ISubInput } from '../../../interfaces/sub-input';
 import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 
