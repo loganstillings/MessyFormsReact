@@ -5,7 +5,7 @@ import Condition from './condition';
 import { ISubInput } from '../../../interfaces/sub-input';
 import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 
-interface SubInputProps {
+interface ISubInputProps {
     layeredIndex: string;
     onQuestionChanged: (
         event:
@@ -19,7 +19,7 @@ interface SubInputProps {
     onDelete: (layeredIndex: string) => void;
 }
 
-function SubInput(props: SubInputProps) {
+function SubInput(props: ISubInputProps) {
     return (
         <div className="question-block padded">
             <Condition

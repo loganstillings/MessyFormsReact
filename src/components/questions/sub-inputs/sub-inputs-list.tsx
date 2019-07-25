@@ -4,7 +4,7 @@ import SubInput from './sub-input';
 import { ISubInput } from '../../../interfaces/sub-input';
 import { QuestionTypesEnum } from '../../../enums/QuestionTypes';
 
-interface SubInputsListProps {
+interface ISubInputsListProps {
     subInputs: ISubInput[];
     layeredIndex: string;
     onQuestionChanged: (
@@ -18,7 +18,7 @@ interface SubInputsListProps {
     parentQuestionType: QuestionTypesEnum;
 }
 
-function SubInputsList(props: SubInputsListProps) {
+function SubInputsList(props: ISubInputsListProps) {
     return (
         <div className="sub-inputs-list">
             {props.subInputs.map(

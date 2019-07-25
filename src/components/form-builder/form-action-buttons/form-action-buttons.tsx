@@ -3,12 +3,12 @@ import React from 'react';
 import AddInputButton from './add-input.button';
 import SaveButton from './save-button';
 
-interface FormActionButtonsProps {
+interface IFormActionButtonsProps {
     onInputAdded: () => void;
     onSave: () => void;
 }
 
-function FormActionButtons(props: FormActionButtonsProps) {
+function FormActionButtons(props: IFormActionButtonsProps) {
     return (
         <div className="row padded">
             <AddInputButton onInputAdded={props.onInputAdded} />

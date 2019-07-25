@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface AddInputButtonProps {
+interface IAddInputButtonProps {
     onInputAdded: () => void;
 }
 
-function AddInputButton(props: AddInputButtonProps) {
+function AddInputButton(props: IAddInputButtonProps) {
     return (
         <button
             className="spaced btn btn-secondary"

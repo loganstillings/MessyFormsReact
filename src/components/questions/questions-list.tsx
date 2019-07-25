@@ -4,7 +4,7 @@ import QuestionBase from './question-base';
 import SubInputsList from './sub-inputs/sub-inputs-list';
 import { ITopLevelQuestion } from '../../interfaces/top-level-question';
 
-interface QuestionsListProps {
+interface IQuestionsListProps {
     questions: ITopLevelQuestion[];
     onQuestionChanged: (
         event:
@@ -16,7 +16,7 @@ interface QuestionsListProps {
     onDelete: (layeredIndex: string) => void;
 }
 
-function QuestionsList(props: QuestionsListProps) {
+function QuestionsList(props: IQuestionsListProps) {
     const questionsList = props.questions.map(
         (question: ITopLevelQuestion, index: number) => {
             return (

@@ -3,7 +3,7 @@ import React from 'react';
 import { IQuestionBase } from '../../interfaces/question-base';
 import { QuestionTypesEnum } from '../../enums/QuestionTypes';
 
-interface QuestionBaseProps {
+interface IQuestionBaseProps {
     layeredIndex: string;
     onQuestionChanged: (
         event:
@@ -16,7 +16,7 @@ interface QuestionBaseProps {
     question: IQuestionBase;
 }
 
-function QuestionBase(props: QuestionBaseProps) {
+function QuestionBase(props: IQuestionBaseProps) {
     const handleChange = (
         event:
             | React.ChangeEvent<HTMLSelectElement>

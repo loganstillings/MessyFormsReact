@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface SaveButtonProps {
+interface ISaveButtonProps {
     onSave: () => void;
 }
 
-function SaveButton(props: SaveButtonProps) {
+function SaveButton(props: ISaveButtonProps) {
     return (
         <button className="spaced btn btn-primary" onClick={props.onSave}>
             Save Form
